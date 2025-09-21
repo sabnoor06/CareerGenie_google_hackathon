@@ -1,12 +1,12 @@
 {
   "name": "careergenie",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "backend/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "build":"npm install --prefix rag_dashboard-main && npm install --prefix ai-career-advisor-api-backend"
+    "start": "node backend/index.js"
   },
   "author": "",
   "license": "ISC",
   "description": ""
 }
+
