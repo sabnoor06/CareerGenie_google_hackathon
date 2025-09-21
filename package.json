@@ -4,7 +4,7 @@
   "main": "backend/index.js",
   "scripts": {
   "build": "npm install --prefix rag_dashboard-main && npm install --prefix ai-career-advisor-api-backend",
-  "start": "node backend/index.js"
+  "start": "node ai-career-advisor-api-backend/index.js"
   },
 
   "author": "",
