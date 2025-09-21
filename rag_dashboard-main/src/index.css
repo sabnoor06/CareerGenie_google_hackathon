@@ -1,0 +1,889 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: white !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: white !important;
+  background-color: white !important;
+  min-height: 100vh;
+}
+
+/* Remove the universal background override to preserve form styles */
+
+/* Re-apply specific backgrounds we want */
+.sidenav {
+  background-color: #0e0d0d !important;
+}
+
+.custom-navbar {
+  background-color: #070707 !important;
+}
+
+.comp_dashboard {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* ----------------This is for image in Signup page ---------------------------------- */
+.logo-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 1;
+}
+/* Removed the brown overlay completely */
+/* This is for form page ------------------------------------------------*/
+.container {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  /* margin-left: 8rem; */
+  padding-left: 25rem;
+  /* padding: 2rem; */
+}
+
+/* Form container with glassmorphism effect */
+.form-container {
+  max-width: 500px;
+  width: 50%;
+  padding: 1rem 2rem;
+  
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 
+    0 25px 45px rgba(168, 0, 0, 0.1),
+    0 8px 32px rgba(30, 0, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form title styling */
+.form-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.form-title h2 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.form-title h3 {
+  font-size: 1.8rem;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.paragraph {
+  color: #636e72;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* Sign In heading */
+.mb-4 {
+  font-size: 1.5rem;
+  color: #2d3436;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* Form group styling */
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+/* Form label styling */
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2d3436;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Form control styling */
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+  transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+  color: #a0a6b1;
+}
+
+/* Form text styling */
+.form-text {
+  font-size: 0.85rem;
+  color: #636e72;
+  margin-top: 0.25rem;
+}
+
+/* Checkbox styling */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  accent-color: #6c5ce7;
+}
+
+.form-check-label {
+  color: #2d3436;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Button styling */
+.btn {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/* Alert styling */
+.alert {
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.alert-danger {
+  background: rgba(255, 107, 107, 0.1);
+  color: #e74c3c;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.alert-success {
+  background: rgba(0, 184, 148, 0.1);
+  color: #00b894;
+  border: 1px solid rgba(0, 184, 148, 0.3);
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+/* Sign up link styling */
+.text-center {
+  text-align: center;
+}
+
+.text-center span {
+  color: #636e72;
+  font-size: 0.95rem;
+}
+
+.text-primary {
+  color: #6c5ce7 !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.text-primary:hover {
+  color: #a29bfe !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    margin-left: 2rem;
+    padding: 1rem;
+  }
+
+  .form-container {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .logo-img {
+    opacity: 0.1;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-left: 1rem;
+  }
+
+  .form-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-title h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* --------------------------This is for my topNav in dashboard ------------------------ */
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #fdfeff; 
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.icon-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-list li i {
+  font-size: 20px;
+  color: #5b0fc7;
+  transition: color 0.2s;
+}
+
+.icon-list li i {
+  font-size: 20px;
+  color: #333;
+  transition: color 0.2s, transform 0.2s; 
+}
+
+.icon-list li i:hover {
+  color: #007bff; 
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/*--------------------- This code is for my side navbar in dashboard ---------------------*/
+
+
+.sidenav {
+  width: 208px;
+  height: 100vh;
+  background-color: #1e293b;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+
+.logo {
+  width: 7rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 4px;
+  padding-top: 10px;
+  margin-bottom: 1rem;
+  
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  background-color: #10b981;
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.sidenav-menu {
+  flex: 1;
+  padding: 12px 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  margin: 0 8px;
+  border-radius: 6px;
+}
+
+.nav-item:hover {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+.nav-item.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.nav-item.active .nav-icon {
+  color: white;
+}
+
+.nav-icon {
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidenav {
+    width: 60px;
+  }
+  
+  .logo-text,
+  .nav-label {
+    display: none;
+  }
+  
+  .nav-item {
+    justify-content: center;
+    padding: 12px;
+  }
+  
+  .logo {
+    justify-content: center;
+  }
+}
+
+
+/* -----------------------This code CSS is for Email-dashboard --------------------------------*/
+
+.dashboard-container {
+  padding: 20px;
+  background: transparent;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin-left: 10rem;
+}
+
+.dashboard-inner {
+  padding-top: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* === Header === */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* === Filter Bar === */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1 1 300px; 
+  min-width: 300px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  margin-bottom: 0; 
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  height: 40px; 
+  box-sizing: border-box;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-input,
+.filter-select {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  height: 40px; 
+  box-sizing: border-box;
+  min-width: 120px;
+  color: #fff;
+}
+
+.filter-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.filter-select option {
+  background: #2d3748;
+  color: #fff;
+}
+
+.filter-input {
+  width: 120px;
+}
+
+.filter-select {
+  width: 140px;
+}
+
+.btn-refresh,
+.footer-refresh {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  height: 40px; 
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-refresh:hover,
+.footer-refresh:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* === Email List === */
+.email-list {
+  margin-top: 1rem;
+}
+
+.email-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.email-unread {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.5);
+}
+
+.email-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.email-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.email-details {
+  flex: 1;
+}
+
+.email-sender {
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+}
+
+.email-sender-unread {
+  color: #a7c6ff;
+}
+
+.email-date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.email-subject {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 500;
+  color: #fff;
+}
+
+.email-subject-unread {
+  font-weight: bold;
+  color: #a7c6ff;
+}
+
+.email-id,
+.thread-id {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-see-body {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-see-body:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.email-body {
+  white-space: pre-wrap;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.email-labels {
+  margin-top: 8px;
+}
+
+.email-label {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-top: 5px;
+  color: white;
+}
+
+.label-unread { background-color: #17a2b8; }
+.label-inbox { background-color: #28a745; }
+.label-spam { background-color: #dc3545; }
+.label-important { background-color: #ffc107; color: #212529; }
+.label-starred { background-color: #6f42c1; }
+.label-category { background-color: #20c997; }
+
+/* === Loading and Error === */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vh;
+  font: 1em sans-serif;
+  color: #fff;
+}
+
+.loading-text {
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-left-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  color: #ff6b6b;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.no-emails {
+  text-align: center;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* === Footer === */
+.footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-box {
+    min-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .filters {
+    justify-content: center;
+  }
+  
+  .filter-input,
+  .filter-select {
+    min-width: 100px;
+  }
+}
+
+
+/* This CSS code is for my DashboardComponent when they are Rendered to there respective pages. */
+
+.comp_dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40vh;
+  font: 1em sans-serif;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-left: 220px;
+  margin-right: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+} 
+
+.comp_dashboard h2 {
+  color: #000000 !important;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.comp_dashboard p {
+  color: #333333 !important;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.component3 {
+  margin-top: 0.6rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.component3:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+/* ----------------------this is for calendar title */
+.filter-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: -20px;
+  transform: translateY(-22px);
+  color: #fff;
+}

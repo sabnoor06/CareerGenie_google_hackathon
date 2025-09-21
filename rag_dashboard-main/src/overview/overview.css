@@ -1,0 +1,571 @@
+/* overview.css */
+
+.overview-container {
+    padding: 2rem 0;
+    color: #333;
+    /* Change the margin to 0 to move it to the absolute left edge */
+    margin-left: 10px; 
+    padding-top: 30px;
+    /* You might also need to adjust the width now */
+    width: calc(100% - 100px); /* Adjust width as needed */
+    box-sizing: border-box;
+}
+
+/* --- UPDATED: Brand Header Styles - Top Left Corner --- */
+.brand-header {
+    position: absolute;
+    top: 40px;
+    left: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+}
+
+.brand-logo {
+    height: 60px; /* Reduced size for corner placement */
+    width: auto;
+}
+
+.brand-name {
+    font-size: 1.2rem; /* Slightly smaller for corner */
+    font-weight: 700;
+    color: #712b38;
+    margin: 0;
+}
+
+/* --- UPDATED: Hero Section Styles - Moved to Top --- */
+.hero-section {
+    text-align: center;
+    margin-top: 1rem; /* Reduced top margin */
+    margin-bottom: 4rem;
+    padding-top: 0; /* Remove extra padding */
+}
+
+.hero-headline {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    margin-top: 0; /* Ensure no top margin */
+}
+
+.hero-headline .highlight-text {
+    color: #6c5ce7;
+}
+
+.hero-subheading {
+    font-size: 1.2rem;
+    color: #475569;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: #ff9f43;
+    color: white;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.5);
+}
+
+/* --- Features Section Styles --- */
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    flex: 1;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* --- Companies Section Styles --- */
+.companies-section {
+    text-align: center;
+    background-color: #f8fafc;
+    padding: 3rem 0;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+}
+
+.companies-section h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.companies-section p {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 2rem;
+}
+
+/* --- Logo Animation Styles --- */
+.logos-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.logos-container:before,
+.logos-container:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+}
+.logos-container:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(248, 250, 252, 0), #f8fafc);
+}
+.logos-container:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(248, 250, 252, 0), #f8fafc);
+}
+
+.logos-slide {
+    display: inline-block;
+    animation: 35s slide infinite linear;
+}
+
+.logos-container:hover .logos-slide {
+    animation-play-state: paused;
+}
+
+.company-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #94a3b8;
+    margin: 0 40px;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* --- Career Links & Company Card Styles --- */
+.career-links-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+    background-color: #1e293b;
+    border-radius: 16px;
+}
+
+.career-links-section h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.career-links-section p {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    margin-bottom: 2.5rem;
+}
+
+.career-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.company-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.company-card p {
+    color: #475569;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.company-card-link {
+    display: inline-block;
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.company-card-link:hover {
+    background-color: #6c5ce7;
+    color: #ffffff;
+}
+
+/* --- Responsive adjustments --- */
+@media (max-width: 992px) {
+    .career-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .overview-container {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+        padding: 1.5rem;
+        padding-top: 80px; /* Add padding to avoid logo overlap on mobile */
+    }
+    
+    .brand-header {
+        position: fixed; /* Make it fixed on mobile for better visibility */
+        top: 10px;
+        left: 10px;
+    }
+    
+    .brand-logo {
+        height: 40px; /* Even smaller on mobile */
+    }
+    
+    .brand-name {
+        font-size: 1rem;
+    }
+    
+    .features-section {
+        flex-direction: column;
+    }
+    .hero-headline {
+        font-size: 2.5rem;
+    }
+    .career-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Brand Color Styles --- */
+.company-card {
+    border-top: 5px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+.company-logo.google-color, .company-card.google-color h3 { color: #4285F4; }
+.company-card.google-color { border-top-color: #4285F4; }
+
+.company-logo.microsoft-color, .company-card.microsoft-color h3 { color: #00A4EF; }
+.company-card.microsoft-color { border-top-color: #00A4EF; }
+
+.company-logo.apple-color, .company-card.apple-color h3 { color: #555555; }
+.company-card.apple-color { border-top-color: #555555; }
+
+.company-logo.meta-color, .company-card.meta-color h3 { color: #0062E0; }
+.company-card.meta-color { border-top-color: #0062E0; }
+
+.company-logo.oracle-color, .company-card.oracle-color h3 { color: #F80000; }
+.company-card.oracle-color { border-top-color: #F80000; }
+
+.company-logo.amazon-color, .company-card.amazon-color h3 { color: #FF9900; }
+.company-card.amazon-color { border-top-color: #FF9900; }
+
+/* --- Job Market Insights Section --- */
+.market-insights-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    margin-bottom: 4rem;
+}
+
+.market-insights-section h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 2rem;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.insight-card {
+    background-color: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+    border-top: 4px solid transparent;
+    transition: transform 0.3s ease;
+}
+.insight-card:hover {
+    transform: translateY(-3px);
+}
+
+.insight-card.trending { border-top-color: #2ecc71; }
+.insight-card.declining { border-top-color: #e74c3c; }
+.insight-card.salaries { border-top-color: #3498db; }
+.insight-card.remote { border-top-color: #9b59b6; }
+
+.insight-icon {
+    font-size: 2.5rem;
+    color: #6c5ce7;
+    margin-bottom: 1rem;
+}
+
+.insight-title {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.insight-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #475569;
+}
+
+.insight-list li {
+    margin-bottom: 0.5rem;
+}
+
+.insight-data {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.insight-subtext {
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.loading-text, .error-text {
+    font-size: 1.2rem;
+    color: #64748b;
+    padding: 2rem 0;
+}
+
+.error-text {
+    color: #e74c3c;
+}
+
+/* Responsive adjustment for the new section */
+@media (max-width: 992px) {
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Student Guidance Section Styles --- */
+.student-guidance-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #f1f5f9;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+}
+
+.student-guidance-section h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.student-subheading {
+    font-size: 1.1rem;
+    color: #475569;
+    max-width: 700px;
+    margin: 0 auto 2.5rem auto;
+}
+
+.guidance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.guidance-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    text-align: left;
+    border-top: 4px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.guidance-card.medical { border-top-color: #27ae60; }
+.guidance-card.engineering { border-top-color: #2980b9; }
+
+.guidance-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.guidance-card h3 {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+}
+
+.guidance-card p {
+    color: #475569;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.guidance-button {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+}
+
+.guidance-card.medical .guidance-button:hover {
+    background-color: #27ae60;
+    color: white;
+}
+.guidance-card.engineering .guidance-button:hover {
+    background-color: #2980b9;
+    color: white;
+}
+
+/* Responsive adjustment for guidance grid */
+@media (max-width: 768px) {
+    .guidance-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Footer Styles --- */
+.site-footer {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 2rem 1.5rem;
+    margin-top: 4rem;
+    border-radius: 16px;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.footer-credit p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.footer-links h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.footer-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Responsive adjustment for footer */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
