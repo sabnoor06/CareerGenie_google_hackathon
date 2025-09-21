@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "backend/index.js",
   "scripts": {
-    "start": "node backend/index.js"
+  "build": "npm install --prefix rag_dashboard-main && npm install --prefix ai-career-advisor-api-backend",
+  "start": "node backend/index.js"
   },
+
   "author": "",
   "license": "ISC",
   "description": ""
