@@ -1,12 +1,13 @@
 // index.js
-
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const multer = require('multer');
 const pdf = require('pdf-parse');
+
 dotenv.config();
+
 const app = express();
 const router = express.Router();
 const port = 8080;
@@ -19,87 +20,84 @@ app.use(express.json());
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// --- GEMINI AI SETUP ---
+// --- GEMINI AI SETUP & FALLBACK LOGIC ---
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+// Updated list for 2026: aliases 'gemini-pro-latest' and 'gemini-flash-latest' 
+// now point to Gemini 3 series.
+const MODEL_PRIORITY_LIST = [
+  "gemini-3-flash-preview",
+  "gemini-3-pro-preview",
+  "gemini-2.5-flash",
+  "gemini-2.5-pro",
+  "gemini-1.5-flash"
+];
+
+/**
+ * Robust JSON extraction to prevent 500 errors during JSON.parse()
+ */
+const cleanAIResponse = (text) => {
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  return jsonMatch ? jsonMatch[0] : text;
+};
+
+/**
+ * Attempts to generate content using a list of models until one succeeds.
+ */
+async function generateWithFallback(prompt) {
+  let lastError = null;
+  for (const modelName of MODEL_PRIORITY_LIST) {
+    try {
+      console.log(`Attempting request with: ${modelName}`);
+      const modelInstance = genAI.getGenerativeModel({ model: modelName });
+      const result = await modelInstance.generateContent(prompt);
+      return result.response.text();
+    } catch (error) {
+      console.warn(`Model ${modelName} failed: ${error.message}`);
+      lastError = error;
+    }
+  }
+  throw new Error(`All models failed. Last error: ${lastError?.message}`);
+}
 
 // --- API ENDPOINTS ---
 
-// --- NEW: MARKET INSIGHTS ENDPOINT ---
-// --- DYNAMIC MARKET INSIGHTS ENDPOINT ---
-// --- DYNAMIC MARKET INSIGHTS ENDPOINT (WITH DECLINING ROLES) ---
-app.get('/market-insights', async (req, res) => {
-  try {
-    // 1. Updated prompt to include "decliningRoles"
-    const prompt = `
-      Generate a JSON object with current market insights for the tech industry in the USA.
-      The JSON object must have exactly these four keys:
-      - "trendingRoles": an array of 3 popular and current job titles.
-      - "decliningRoles": an array of 3 job titles with decreasing demand due to automation or tech shifts.
-      - "averageSalaries": an object mapping the 3 TRENDING job titles to their estimated average annual USD salary as a string (e.g., "$130,000").
-      - "remoteOpportunities": a string representing the estimated percentage of tech jobs that are remote (e.g., "68%").
-
-      Do not include any text or formatting outside of the JSON object itself.
-    `;
-
-    // 2. Call the AI model
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-
-    // 3. Clean and parse the response
-    const cleanedText = text.replace(/```json|```/g, '').trim();
-    const marketData = JSON.parse(cleanedText);
-
-    // 4. Send the dynamic data to the frontend
-    res.json(marketData);
-
-  } catch (error) {
-    console.error("Error fetching market insights from AI:", error);
-    // As a fallback, send expanded mock data if the AI fails
-    res.status(500).json({
-      trendingRoles: ["AI/ML Engineer", "Cloud Architect", "Cybersecurity Analyst"],
-      decliningRoles: ["Data Entry Clerk", "IT Support (Tier 1)", "Manual QA Tester"],
-      averageSalaries: { "AI/ML Engineer": "$145,000", "Cloud Architect": "$150,000", "Cybersecurity Analyst": "$110,000" },
-      remoteOpportunities: "65%"
-    });
-  }
-});
-
-// This endpoint receives the transcribed text from the frontend
 app.post('/chat', async (req, res) => {
   try {
     const { message } = req.body;
+    if (!message) return res.status(400).json({ error: "Message is required" });
+
     const prompt = `You are a helpful AI Career Advisor. A user asks: "${message}". Provide a concise and actionable response.`;
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    res.json({ response: text });
+    const aiText = await generateWithFallback(prompt);
+    
+    res.json({ response: aiText });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to get response from AI.' });
+    console.error("Chat Error:", error);
+    res.status(500).json({ error: 'AI service unavailable.', details: error.message });
   }
 });
 
 app.post('/analyze-resume', upload.single('resume'), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded.' });
-
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    
     const data = await pdf(req.file.buffer);
     const resumeText = data.text;
 
-    // --- PROMPT MODIFICATION ---
     const prompt = `
-      As an expert technical recruiter and ATS (Applicant Tracking System) specialist, analyze this resume text: "${resumeText}".
-      Provide a response as a JSON object with three keys: "analysis", "suggestions", and "atsScore".
-      - "analysis": A 2-3 sentence summary of the resume's strengths.
-      - "suggestions": A markdown bulleted list of 3 concrete improvement tips.
-      - "atsScore": An estimated ATS-friendliness score between 0 and 100, based on keyword matching, formatting, and clarity.
+      Analyze this resume text and provide a JSON object with:
+      - "score": (0-100)
+      - "feedback": (A brief summary)
+      - "strengths": (Array of 3 strings)
+      - "improvements": (Array of 3 strings)
+      Resume: ${resumeText}
     `;
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text().replace(/```json|```/g, '').trim();
-    const analysisResult = JSON.parse(text);
-    res.json(analysisResult);
+    const rawResponse = await generateWithFallback(prompt);
+    const cleanedJson = cleanAIResponse(rawResponse);
+    res.json(JSON.parse(cleanedJson));
   } catch (error) {
-    console.error('Error analyzing resume:', error); // Added for better debugging
+    console.error("Resume Error:", error);
     res.status(500).json({ error: 'Failed to analyze resume.' });
   }
 });
@@ -107,61 +105,108 @@ app.post('/analyze-resume', upload.single('resume'), async (req, res) => {
 app.post('/skill-gap', async (req, res) => {
   try {
     const { resumeText, jobDescriptionText } = req.body;
-    if (!resumeText || !jobDescriptionText) {
-      return res.status(400).json({ error: 'Resume and job description text are required.' });
-    }
-
     const prompt = `
-      Act as a senior technical recruiter. Perform a skill gap analysis by comparing the candidate's resume against the job description.
-      Resume: "${resumeText}"
-      Job Description: "${jobDescriptionText}"
-      
-      Provide a response as a JSON object with two keys: "missingSkills" and "recommendations".
-      - "missingSkills": A markdown bulleted list of the top 3-5 critical missing skills.
-      - "recommendations": A markdown bulleted list of 2-3 specific online course recommendations (from Coursera, edX, or Google Skills Boost) to acquire these skills.
+      Compare this resume to the job description and provide a JSON object:
+      - "missingSkills": (Array of 3 strings)
+      - "matchPercentage": (0-100)
+      - "recommendations": (Array of 2 courses)
+      Resume: ${resumeText}
+      Job: ${jobDescriptionText}
     `;
-    
-    const result = await model.generateContent(prompt);
-    const text = result.response.text().replace(/```json|```/g, '').trim();
-    const analysisResult = JSON.parse(text);
-    res.json(analysisResult);
+
+    const rawResponse = await generateWithFallback(prompt);
+    const cleanedJson = cleanAIResponse(rawResponse);
+    res.json(JSON.parse(cleanedJson));
   } catch (error) {
+    console.error("Skill Gap Error:", error);
     res.status(500).json({ error: 'Failed to analyze skill gap.' });
   }
 });
 
-router.post('/login', async (req, res) => {
-  const allowedUsers = [
-    { username: 'yawar', password: '1234' },
-    { username: 'sabnoor', password: '1234' }
-  ];
-  const { username, password } = req.body;
-  const user = allowedUsers.find(u => u.username === username);
-
-  if (user && user.password === password) {
-    console.log(`Login successful for user: ${username}`);
-    res.json({
-      success: true,
-      message: 'Login successful!',
-      access_token: 'fake-access-token-for-development-' + Math.random(),
-      user: {
-        username: user.username,
-        name: user.username.charAt(0).toUpperCase() + user.username.slice(1)
-      }
-    });
-  } else {
-    console.log(`Login failed for user: ${username}`);
-    res.status(401).json({ 
-      success: false, 
-      error: 'Invalid username or password' 
-    });
+app.get('/market-insights', async (req, res) => {
+  try {
+    const prompt = `Generate a JSON object with: "trendingRoles" (3 roles), "decliningRoles" (3 roles), and "averageSalaries" (map roles to salaries).`;
+    const rawResponse = await generateWithFallback(prompt);
+    const cleanedJson = cleanAIResponse(rawResponse);
+    res.json(JSON.parse(cleanedJson));
+  } catch (error) {
+    console.error("Market Error:", error);
+    res.status(500).json({ error: 'Failed to fetch insights.' });
   }
 });
 
-// Connect the router to the app. All routes on 'router' will be prefixed with '/api'
-app.use('/api', router);
 
-// --- START SERVER ---
+app.post('/resume-market-insights', upload.single('resume'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    
+    const data = await pdf(req.file.buffer);
+    const resumeText = data.text;
+
+    const resumePrompt = `
+      Analyze this resume text and provide a JSON object with:
+      - "score": (0-100)
+      - "feedback": (A brief summary)
+      - "strengths": (Array of 3 strings)
+      - "improvements": (Array of 3 strings)
+      Resume: ${resumeText}
+    `;
+
+    const marketPrompt = `Generate a JSON object with: "trendingRoles" (3 roles), "decliningRoles" (3 roles), and "averageSalaries" (map roles to salaries).`;
+
+    const [resumeRaw, marketRaw] = await Promise.all([
+      generateWithFallback(resumePrompt),
+      generateWithFallback(marketPrompt)
+    ]);
+
+    const resumeAnalysis = JSON.parse(cleanAIResponse(resumeRaw));
+    const marketInsights = JSON.parse(cleanAIResponse(marketRaw));
+
+    res.json({
+      resumeAnalysis,
+      marketInsights,
+      generatedAt: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("Resume+Market Error:", error);
+    res.status(500).json({ error: 'Failed to analyze resume and market insights.' });
+  }
+});
+
+// --- AUTH (STAYS THE SAME) ---
+app.use('/api', router);
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'yawar' && password === '1234') {
+    res.json({ success: true, user: { username: 'Yawar' } });
+  } else {
+    res.status(401).json({ success: false, error: 'Invalid credentials' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`🚀 Server is running on http://localhost:${port}`);
+});
+app.post('/mock-interview', async (req, res) => {
+  try {
+    const { jobTitle, lastMessage, history } = req.body;
+
+    // The system prompt tells Gemini how to behave
+    const systemPrompt = `
+      You are an expert HR Interviewer for the position of ${jobTitle}. 
+      Your goal is to conduct a realistic interview. 
+      - Ask only ONE question at a time.
+      - If the user answers, provide brief feedback and ask the next follow-up question.
+      - Keep the tone professional but encouraging.
+      - After 5 questions, say "INTERVIEW_COMPLETE" and provide a summary of their performance.
+    `;
+
+    // Combine history for context so the AI remembers previous questions
+    const fullPrompt = `${systemPrompt}\n\nInterview History:\n${history}\n\nUser: ${lastMessage}`;
+    
+    const aiResponse = await generateWithFallback(fullPrompt);
+    res.json({ response: aiResponse });
+  } catch (error) {
+    res.status(500).json({ error: 'Interview failed to start.' });
+  }
 });
